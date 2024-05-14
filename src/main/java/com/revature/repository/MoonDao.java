@@ -21,7 +21,7 @@ public class MoonDao {
 //list of moons to grab, grab all the moons that are in planatarium
 		try(Connection connection = ConnectionUtil.createConnection())
 		{//sql statment to select all the moons
-			String sql = "SELECT* FROM moons";
+			String sql = "SELECT* FROM moons ";
 			//preparedstatment to connect the sql statement
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			//preparedStatement.setInt(1,myPlanetid);

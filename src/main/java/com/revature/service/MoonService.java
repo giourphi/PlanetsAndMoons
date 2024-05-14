@@ -41,14 +41,22 @@ public class MoonService {
 		// TODO implement
 		//checks to make sure moonname length doesnt exceed 30 characters
 		if (m.getName().length()<=30) {
-			//check to see if moonName is unique
-			if (dao.getMoonByName(m.getName(),m.getMyPlanetId()) == null) {
+
+			if(m.getName().isBlank())
+			{
+				return null;
+			}
+			else {
+				//check to see if moonName is unique
+
 				Moon validMoonData = new Moon();
 				validMoonData.setName(m.getName());
 				validMoonData.setMyPlanetId(m.getMyPlanetId());
 				// make sure to return the new user's data
 				return dao.createMoon(validMoonData);
 			}
+
+
 		}
 		//returns null if nothing met the requirements for creating a moon
 		return null;

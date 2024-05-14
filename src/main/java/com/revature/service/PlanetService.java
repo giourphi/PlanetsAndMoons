@@ -40,7 +40,12 @@ public class PlanetService {
 	//check to see if planet name is <=30 characters
 		if (planet.getName().length()<=30) {
 			//check to see if planetname is unique
-			if(dao.getPlanetByName(planet.getName(), planet.getOwnerId())==null) {
+
+			if(planet.getName().isBlank()) {
+				return  null;
+
+			}
+			else {
 				//create the planet and return it
 				Planet validPlanetData = new Planet();
 				validPlanetData.setName(planet.getName());
