@@ -78,12 +78,11 @@ public class PlanetDaoTest {
         getPlanet.setName("venus");
         getPlanet.setOwnerId(1);
         PlanetDao planetDao = new PlanetDao();
-        Planet expectedPlaent = new Planet();
-        expectedPlaent.getId();
-        expectedPlaent.getName();
-        expectedPlaent.getOwnerId();
+        planetDao.createPlanet(getPlanet,getPlanet.getOwnerId());
+        Planet expectedPlanet = planetDao.getPlanetByName(getPlanet.getName(),getPlanet.getOwnerId());
+
         Planet actualPlanet = planetDao.getPlanetByName(getPlanet.getName(), getPlanet.getOwnerId());
-        Assertions.assertEquals(actualPlanet, expectedPlaent);
+        Assertions.assertEquals(actualPlanet, expectedPlanet);
 
 
     }
@@ -96,36 +95,42 @@ public class PlanetDaoTest {
         getPlanet.setName("venus");
         getPlanet.setOwnerId(1);
         PlanetDao planetDao = new PlanetDao();
-        Planet expectedPlaent = new Planet();
-        expectedPlaent.setId(expectedPlaent.getId());
-        expectedPlaent.setName(expectedPlaent.getName());
-        expectedPlaent.setOwnerId(expectedPlaent.getOwnerId());
+        planetDao.createPlanet(getPlanet,getPlanet.getOwnerId());
+        Planet expectedPlaent = planetDao.getPlanetById(getPlanet.getId(),getPlanet.getOwnerId());
+
         Planet actualPlanet = planetDao.getPlanetById(getPlanet.getId(), getPlanet.getOwnerId());
         Assertions.assertEquals(actualPlanet, expectedPlaent);
-
 
     }
 
     @Test
-    public void  getAllPlanets() {
+    public void  testGetAllPlanets() {
 
-        List<Planet> planets = new ArrayList<>();
+        //given info to test
+        Planet planet = new Planet();
+        planet.setId(1);
+        planet.setName("Earth");
+        planet.setOwnerId(1);
 
-        Planet getPlanet = new Planet();
-
-        getPlanet.setId(1);
-        getPlanet.setName("valuePlanet");
-        getPlanet.setOwnerId(1);
-
-        planets.add(getPlanet);
+        Planet planet2 = new Planet();
+        planet2.setId(2);
+        planet2.setName("Mars");
+        planet2.setOwnerId(1);
 
         PlanetDao planetDao = new PlanetDao();
-        Planet expectedPlaent = new Planet();
-        expectedPlaent.getId();
-        expectedPlaent.getName();
-        expectedPlaent.getOwnerId();
-        Planet actualPlanet = planetDao.getPlanetByName(getPlanet.getName(), getPlanet.getOwnerId());
-        Assertions.assertEquals(actualPlanet, expectedPlaent);
+        //create them
+        planetDao.createPlanet(planet, planet.getOwnerId());
+        planetDao.createPlanet(planet2,planet2.getOwnerId());
+
+        List<Planet> planetList1 = planetDao.getAllPlanets(planet.getOwnerId());
+        //List<Planet> planetList2 = planetDao.getAllPlanets(planet2.getOwnerId());
+
+
+        //check to see that its not null and that list isnt empty
+        Assertions.assertNotNull(planetList1);
+        Assertions.assertFalse(planetList1.isEmpty());
+        Assertions.assertEquals(10,planetList1.size());
+
 
     }
 
